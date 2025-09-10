@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TORANG STATISTIKA</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: #f0f0f0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Card styling */
+    .student-card {
+      background: rgba(255 255 255 / 0.12);
+      backdrop-filter: saturate(180%) blur(16px);
+      border-radius: 28px;
+      border: 1px solid rgba(255 255 255 / 0.25);
+      box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.15),
+        inset 0 0 0 1px rgba(255 255 255 / 0.1);
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      overflow: hidden;
+      cursor: grab;
+      user-select: none;
+    }
+    .student-card:active {
+      cursor: grabbing;
+    }
+    .student-card:hover,
+    .student-card:focus-within {
+      transform: translateY(-14px);
+      box-shadow:
+        0 24px 48px rgba(0, 0, 0, 0.35),
+        inset 0 0 0 1.5px rgba(255 255 255 / 0.3);
+      outline: none;
+    }
+
+    /* Scroll container */
+    .scroll-container {
+      display: flex;
+      overflow-x: auto;
+      gap: 1.25rem;
+      padding: 1.25rem 1.75rem;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      border-bottom: 1px solid rgba(255 255 255 / 0.15);
+      background: rgba(255 255 255 / 0.06);
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255 255 255 / 0.5) transparent;
+      scroll-padding-left: 1.75rem;
+      scroll-padding-right: 1.75rem;
+    }
+    .scroll-container::-webkit-scrollbar {
+      height: 10px;
+    }
+    .scroll-container::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .scroll-container::-webkit-scrollbar-thumb {
+      background-color: rgba(255 255 255 / 0.5);
+      border-radius: 9999px;
+      transition: background-color 0.3s ease;
+    }
+    .scroll-container::-webkit-scrollbar-thumb:hover {
+      background-color: rgba(255 255 255 / 0.7);
+    }
+
+    /* Images */
+    .student-image {
+      flex-shrink: 0;
+      width: 320px;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 20px;
+      box-shadow:
+        0 6px 18px rgba(0, 0, 0, 0.3),
+        0 0 8px rgba(255 255 255 / 0.15);
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      user-select: none;
+      will-change: transform;
+      background: #222;
+    }
+    .student-image:hover,
+    .student-image:focus {
+      transform: scale(1.08);
+      box-shadow:
+        0 12px 28px rgba(0, 0, 0, 0.5),
+        0 0 12px rgba(255 255 255 / 0.3);
+      outline: none;
+      z-index: 10;
+      position: relative;
+    }
+
+    /* Headings */
+    h1,
+    h2 {
+      text-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Badge */
+    .badge {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      padding: 0.4rem 1rem;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 0.8rem;
+      color: white;
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.7);
+      user-select: none;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      white-space: nowrap;
+    }
+    .student-card:hover .badge,
+    .student-card:focus-within .badge {
+      transform: scale(1.2);
+      box-shadow: 0 6px 18px rgba(102, 126, 234, 0.9);
+    }
+
+    /* Header text */
+    header p {
+      max-width: 40rem;
+      margin: 0 auto;
+      line-height: 1.65;
+      font-weight: 500;
+      color: #d1d5dbcc;
+      font-size: 1.125rem;
+    }
+
+    /* Footer */
+    footer p {
+      font-size: 0.9rem;
+      color: #a1a1aaaa;
+      user-select: none;
+      letter-spacing: 0.05em;
+    }
+
+    /* Floating animation */
+    @keyframes float {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-18px);
+      }
+    }
+    .animate-float {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 768px) {
+      .student-image {
+        width: 280px;
+        height: 190px;
+      }
+      .scroll-container {
+        padding: 1rem 1.25rem;
+        gap: 1rem;
+      }
+    }
+    @media (max-width: 480px) {
+      .student-image {
+        width: 220px;
+        height: 150px;
+      }
+    }
+
+    /* Absen table styling */
+    .absen-table {
+      margin-top: 3rem;
+      background: rgba(255 255 255 / 0.12);
+      backdrop-filter: saturate(180%) blur(16px);
+      border-radius: 24px;
+      border: 1px solid rgba(255 255 255 / 0.25);
+      box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.15),
+        inset 0 0 0 1px rgba(255 255 255 / 0.1);
+      width: 100%;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      overflow-x: auto;
+    }
+    .absen-table table {
+      width: 100%;
+      border-collapse: collapse;
+      color: #f0f0f0;
+      font-weight: 500;
+      font-size: 1rem;
+      min-width: 600px;
+    }
+    .absen-table thead tr {
+      background: rgba(255 255 255 / 0.15);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+      font-size: 0.875rem;
+    }
+    .absen-table th,
+    .absen-table td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid rgba(255 255 255 / 0.1);
+      text-align: left;
+    }
+    .absen-table tbody tr:hover {
+      background: rgba(255 255 255 / 0.08);
+    }
+    .absen-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+    .absen-title {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: #e0e7ffcc;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+      user-select: none;
+    }
+  </style>
+</head>
+<body class="min-h-screen py-16 px-6 bg-gradient-to-br from-indigo-700 via-purple-700 to-pink-700">
+  <div class="max-w-7xl mx-auto">
+    <!-- Header Section -->
+    <header class="text-center mb-24 select-none">
+      <div
+        class="w-28 h-28 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-8 animate-float drop-shadow-lg"
+        aria-hidden="true"
+      >
+        <i class="fas fa-graduation-cap text-6xl text-white"></i>
+      </div>
+      <h1 class="text-6xl font-extrabold text-white mb-5 tracking-wider leading-tight">
+        TORANG STATISTIKA
+      </h1>
+      <p>
+        Selamat datang di Website kami Statis B, di sini hanya ada foto-foto kami
+      </p>
+    </header>
+
+    <!-- Students Grid -->
+    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+      <!-- Card 1 -->
+      <article class="student-card" tabindex="0" aria-label="Galeri foto Korelasi">
+        <div class="scroll-container" role="list">
+          <img
+            src="coba3.jpg"
+            alt="Foto Korelasi 1"
+            class="student-image"
+            loading="lazy"
+            draggable="false"
+            role="listitem"
+            tabindex="-1"
+          />
+          <img
+            src="coba2.jpg"
+            alt="Foto Korelasi 2"
+            class="student-image"
+            loading="lazy"
+            draggable="false"
+            role="listitem"
+            tabindex="-1"
+          />
+          <img
+            src="coba3.jpg"
+            alt="Foto Korelasi 3"
+            class="student-image"
+            loading="lazy"
+            draggable="false"
+            role="listitem"
+            tabindex="-1"
+          />
+        </div>
+        <div class="p-8 flex flex-col flex-grow">
+          <h2 class="text-3xl font-bold text-white mb-4">KORELASI</h2>
+          <p class="text-white/80 mb-8 leading-relaxed">
+            Foto Bersama Saat Korelasi
+          </p>
+          <div class="flex items-center space-x-4 mt-auto">
+            <span class="badge" aria-label="Peran Ketua Kelas">Ketua Kelas</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="student-card" tabindex="0" aria-label="Galeri foto Ngumpul Bareng">
+        <div class="scroll-container" role="list">
+          <img
+            src="ngumpul1.jpg"
+            alt="Foto Ngumpul 1"
+            class="student-image"
+            loading="lazy"
+            draggable="false"
+            role="listitem"
+            tabindex="-1"
+          />
+          <img
+            src="ngumpul2.jpg"
+            alt="Foto Ngumpul 2"
+            class="student-image"
+            loading="lazy"
+            draggable="false"
+            role="listitem"
+            tabindex="-1"
+          />
+          <img
+            src="ngumpul3.jpg"
+            alt="Foto Ngumpul 3"
+            class="student-image"
+            loading="lazy"
+            draggable="false"
+            role="listitem"
+            tabindex="-1"
+          />
+        </div>
+        <div class="p-8 flex flex-col flex-grow">
+          <h2 class="text-3xl font-bold text-white mb-4">
+            Foto Bersama Di Rumah Key
+          </h2>
+          <p class="text-white/80 mb-8 leading-relaxed">Ngumpul Bareng</p>
+          <div class="flex items-center space-x-4 mt-auto">
+            <span
+              class="badge bg-yellow-400 bg-gradient-to-r from-yellow-400 to-yellow-600 shadow-yellow-400"
+              aria-label="Label Ngumpul Bareng"
+              >NGUMPUL BARENG</span
+            >
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="student-card" tabindex="0" aria-label="Galeri foto Statistics Got-Talent">
+        <div class="scroll-container" role="list">
+          <img
+            src="minat1.jpg"
+            alt="Statistics Got-Talent 1"
+            class="student-image"
+            loading="lazy"
+            draggable="false"
+            role="listitem"
+            tabindex="-1"
+          />
+          <img
+            src="minat2.jpg"
+            alt="Statistics Got-Talent 2"
+            class="student-image"
+            loading="lazy"
+            draggable="false"
+            role="listitem"
+            tabindex="-1"
+          />
+        </div>
+        <div class="p-8 flex flex-col flex-grow">
+          <h2 class="text-3xl font-bold text-white mb-4">
+            STATISTICS GOT-TALENT
+          </h2>
+          <p class="text-white/80 mb-8 leading-relaxed">
+            Foto Bersama Bersama Kating Saat Agenda
+          </p>
+          <div class="flex items-center space-x-4 mt-auto">
+            <span
+              class="badge bg-red-500 bg-gradient-to-r from-red-500 to-red-700 shadow-red-500"
+              aria-label="Label Foto Bersama Kating"
+              >Foto Bersama Kating</span
+            >
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 4 -->
+      <article class="student-card" tabindex="0" aria-label="Galeri foto Kerja Tugas Bersama">
+        <div class="scroll-container" role="list">
+          <img
+            src="1.jpg"
+            alt="Kerja Tugas Bersama 1"
+            class="student-image"
+            loading="lazy"
+            draggable="false"
+            role="listitem"
+            tabindex="-1"
+          />
+          <img
+            src="2.jpg"
+            alt="Kerja Tugas Bersama 2"
+            class="student-image"
+            loading="lazy"
+            draggable="false"
+            role="listitem"
+            tabindex="-1"
+          />
+        </div>
+        <div class="p-8 flex flex-col flex-grow">
+          <h2 class="text-3xl font-bold text-white mb-4">
+            KERJA TUGAS BERSAMA
+          </h2>
+          <p class="text-white/80 mb-8 leading-relaxed">Dokumentasi Saat Kerja Tugas</p>
+        </div>
+      </article>
+
+      <!-- Card 5 -->
+      <article class="student-card" tabindex="0" aria-label="Galeri foto Bonus dan Selfie">
+        <div class="scroll-container" role="list">
+          <img
+            src="bonus.jpg"
+            alt="Bonus Foto 1"
+            class="student-image"
+            loading="lazy"
+            draggable="false"
+            role="listitem"
+            tabindex="-1"
+          />
+          <img
+            src="bonus2.jpg"
+            alt="Bonus Foto 2"
+            class="student-image"
+            loading="lazy"
+            draggable="false"
+            role="listitem"
+            tabindex="-1"
+          />
+          <img
+            src="bonus3.jpg"
+            alt="Bonus Foto 3"
+            class="student-image"
+            loading="lazy"
+            draggable="false"
+            role="listitem"
+            tabindex="-1"
+          />
+          <img
+            src="bonus4.jpg"
+            alt="Bonus Foto 4"
+            class="student-image"
+            loading="lazy"
+            draggable="false"
+            role="listitem"
+            tabindex="-1"
+          />
+          <img
+            src="bonus5.jpg"
+            alt="Bonus Foto 5"
+            class="student-image"
+            loading="lazy"
+            draggable="false"
+            role="listitem"
+            tabindex="-1"
+          />
+          <img
+            src="bonus6.jpg"
+            alt="Bonus Foto 6"
+            class="student-image"
+            loading="lazy"
+            draggable="false"
+            role="listitem"
+            tabindex="-1"
+          />
+        </div>
+        <div class="p-8 flex flex-col flex-grow">
+          <h2 class="text-3xl font-bold text-white mb-4">
+            FOTO DAN SELFI LAINNYA (BONUS)
+          </h2>
+          <p class="text-white/80 mb-8 leading-relaxed">Maaf ya teman-teman</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- Absen Nama -->
+    <section class="absen-table" aria-label="Daftar Absen Nama Siswa">
+      <h2 class="absen-title">Daftar Absen Nama Siswa</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>Nama Lengkap</th>
+            <th>Absen</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Rahmat Umar</td><td>01</td></tr>
+          <tr><td>2</td><td>Siti Aminah</td><td>02</td></tr>
+          <tr><td>3</td><td>Budi Santoso</td><td>03</td></tr>
+          <tr><td>4</td><td>Rina Dewi</td><td>04</td></tr>
+          <tr><td>5</td><td>Agus Pratama</td><td>05</td></tr>
+          <tr><td>6</td><td>Linda Kurnia</td

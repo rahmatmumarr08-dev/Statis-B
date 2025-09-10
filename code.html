@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RAHMAT UMAR</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+
+    .student-card {
+      transition: all 0.3s ease;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      background: rgba(255 255 255 / 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255 255 255 / 0.2);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .student-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .student-image {
+      height: 250px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+      border-radius: 12px;
+      flex-shrink: 0;
+      width: 350px;
+      user-select: none;
+    }
+
+    .student-card:hover .student-image {
+      transform: scale(1.05);
+    }
+
+    .badge {
+      transition: all 0.3s ease;
+    }
+
+    .student-card:hover .badge {
+      transform: scale(1.1);
+    }
+
+    .floating {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    /* Scroll container styling */
+    .scroll-container {
+      display: flex;
+      overflow-x: auto;
+      gap: 1rem;
+      padding: 1rem;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Hide scrollbar for Webkit browsers */
+    .scroll-container::-webkit-scrollbar {
+      height: 8px;
+    }
+    .scroll-container::-webkit-scrollbar-track {
+      background: rgba(255 255 255 / 0.1);
+      border-radius: 9999px;
+    }
+    .scroll-container::-webkit-scrollbar-thumb {
+      background-color: rgba(255 255 255 / 0.3);
+      border-radius: 9999px;
+    }
+
+    /* Firefox scrollbar */
+    .scroll-container {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255 255 255 / 0.3) rgba(255 255 255 / 0.1);
+    }
+  </style>
+</head>
+<body class="min-h-screen py-12 px-4">
+  <div class="max-w-7xl mx-auto">
+    <!-- Header Section -->
+    <header class="text-center mb-16">
+      <div class="floating inline-block mb-6">
+        <div
+          class="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center mx-auto"
+        >
+          <i class="fas fa-graduation-cap text-4xl text-white"></i>
+        </div>
+      </div>
+      <h1 class="text-5xl font-bold text-white mb-2">TORANG STATISTIKA</h1>
+      <p class="text-xl text-white/90 max-w-3xl mx-auto">
+        Selamat datang di Website kami Statis B, di sini hanya ada foto-foto kami
+      </p>
+    </header>
+
+    <!-- Students Grid -->
+    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Card 1 -->
+      <article class="student-card">
+        <div class="scroll-container">
+          <img
+            src="coba3.jpg"
+            alt="Foto Korelasi 1"
+            class="student-image"
+            loading="lazy"
+          />
+          <img
+            src="coba2.jpg"
+            alt="Foto Korelasi 2"
+            class="student-image"
+            loading="lazy"
+          />
+          <img
+            src="coba3.jpg"
+            alt="Foto Korelasi 3"
+            class="student-image"
+            loading="lazy"
+          />
+        </div>
+        <div class="p-6 flex flex-col flex-grow">
+          <h2 class="text-3xl font-bold text-white mb-2">KORELASI</h2>
+          <p class="text-white/80 mb-4">Foto Bersama Saat Korelasi</p>
+          <div class="flex items-center space-x-2 mt-auto">
+            <span
+              class="badge bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-medium"
+              ></span
+            >
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="student-card">
+        <div class="scroll-container">
+          <img
+            src="ngumpul1.jpg"
+            alt="Foto Ngumpul 1"
+            class="student-image"
+            loading="lazy"
+          />
+          <img
+            src="ngumpul2.jpg"
+            alt="Foto Ngumpul 2"
+            class="student-image"
+            loading="lazy"
+          />
+          <img
+            src="ngumpul3.jpg"
+            alt="Foto Ngumpul 3"
+            class="student-image"
+            loading="lazy"
+          />
+        </div>
+        <div class="p-6 flex flex-col flex-grow">
+          <h2 class="text-3xl font-bold text-white mb-2">
+            Foto Bersama Di Rumah Key
+          </h2>
+          <p class="text-white/80 mb-4">Ngumpul Bareng</p>
+          <div class="flex items-center space-x-2 mt-auto">
+            <span
+              class="badge bg-yellow-500 text-white px-3 py-1 rounded-full text-xs"
+              >NGUMPUL BARENG</span
+            >
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="student-card">
+        <div class="scroll-container">
+          <img
+            src="minat1.jpg"
+            alt="Statistics Got-Talent 1"
+            class="student-image"
+            loading="lazy"
+          />
+          <img
+            src="minat2.jpg"
+            alt="Statistics Got-Talent 2"
+            class="student-image"
+            loading="lazy"
+          />
+        </div>
+        <div class="p-6 flex flex-col flex-grow">
+          <h2 class="text-3xl font-bold text-white mb-2">
+            STATISTICS GOT-TALENT
+          </h2>
+          <p class="text-white/80 mb-4">
+            Foto Bersama Bersama Kating Saat Agenda
+          </p>
+          <div class="flex items-center space-x-2 mt-auto">
+            <span
+              class="badge bg-red-500 text-white px-3 py-1 rounded-full text-xs"
+              >Foto Bersama Kating</span
+            >
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 4 -->
+      <article class="student-card">
+        <div class="scroll-container">
+          <img
+            src="1.jpg"
+            alt="Kerja Tugas Bersama 1"
+            class="student-image"
+            loading="lazy"
+          />
+          <img
+            src="2.jpg"
+            alt="Kerja Tugas Bersama 2"
+            class="student-image"
+            loading="lazy"
+          />
+        </div>
+        <div class="p-6 flex flex-col flex-grow">
+          <h2 class="text-3xl font-bold text-white mb-2">
+            KERJA TUGAS BERSAMA
+          </h2>
+          <p class="text-white/80 mb-4">Dokumentasi Saat Kerja Tugas</p>
+        </div>
+      </article>
+
+      <!-- Card 5 -->
+      <article class="student-card">
+        <div class="scroll-container">
+          <img
+            src="bonus.jpg"
+            alt="Bonus Foto 1"
+            class="student-image"
+            loading="lazy"
+          />
+          <img
+            src="bonus2.jpg"
+            alt="Bonus Foto 2"
+            class="student-image"
+            loading="lazy"
+          />
+          <img
+            src="bonus3.jpg"
+            alt="Bonus Foto 3"
+            class="student-image"
+            loading="lazy"
+          />
+          <img
+            src="bonus4.jpg"
+            alt="Bonus Foto 4"
+            class="student-image"
+            loading="lazy"
+          />
+          <img
+            src="bonus5.jpg"
+            alt="Bonus Foto 5"
+            class="student-image"
+            loading="lazy"
+          />
+          <img
+            src="bonus6.jpg"
+            alt="Bonus Foto 6"
+            class="student-image"
+            loading="lazy"
+          />
+        </div>
+        <div class="p-6 flex flex-col flex-grow">
+          <h2 class="text-3xl font-bold text-white mb-2">
+            FOTO DAN SELFI LAINNYA (BONUS)
+          </h2>
+          <p class="text-white/80 mb-4">Maaf ya teman-teman</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- Class Statistics -->
+    <section
+      class="mt-16 bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8 text-center"
+    >
+      <h2 class="text-3xl font-bold text-white mb-8">Statistika Kelas</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div>
+          <div class="text-4xl font-bold text-white mb-2">18</div>
+          <div class="text-white/80">Siswa</div>
+        </div>
+        <div>
+          <div class="text-4xl font-bold text-white mb-2">---</div>
+          <div class="text-white/80">Dosen</div>
+        </div>
+        <div>
+          <div class="text-4xl font-bold text-white mb-2">---</div>
+          <div class="text-white/80">Matkul</div>
+        </div>
+        <div>
+          <div class="text-4xl font-bold text-white mb-2">95%</div>
+          <div class="text-white/80">Kehadiran</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="mt-16 text-center text-white/80">
+      <p>
+        © 2025 Jurusan Matematika Prodi Statistika Universitas Negeri Gorontalo.
+        All rights reserved.
+      </p>
+    </footer>
+  </div>
+
+  <script>
+    // Add some interactive effects
+    document.addEventListener("DOMContentLoaded", function () {
+      const cards = document.querySelectorAll(".student-card");
+
+      cards.forEach((card) => {
+        card.addEventListener("mouseenter", function () {
+          this.style.transform = "translateY(-10px)";
+          this.style.boxShadow = "0 20px 40px rgba(0,0,0,0.2)";
+        });
+
+        card.addEventListener("mouseleave", function () {
+          this.style.transform = "translateY(0)";
+          this.style.boxShadow = "0 10px 30px rgba(0,0,0,0.1)";
+        });
+      });
+    });
+  </script>
+</body>
+</html>
